@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -13,26 +14,36 @@ import java.util.Random;
 
 public class HechosCuriososActivity extends ActionBarActivity {
 
-    //Declare the new View Variables
-    TextView factLabel;
-    Button showfactbook;
-    private TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hechos_curiosos);
         // Declare our View variables and assign the Views from the layout file
+        //Declare the new View Variables
+        final TextView factLabel;
+        Button showfactbook;
+        TextView textView;
         factLabel = (TextView) findViewById(R.id.textView2);
         Button showFactButton = (Button) findViewById(R.id.button);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fact = "";
-                // Randomly select a fact
-                Random randomGenerator = new Random(); //Construct new number Generator
-                int randomNumber = randomGenerator.nextInt(10); // limit to ten
-                fact = Integer.toString(randomNumber);
+                TextView factLabel = (TextView) findViewById(R.id.HechoCuriosoTextView);
+                String fact = FactBook.getRandomFact();
+                changeBackgroundColor();
+                factLabel.setText(fact);
+
+            }
+
+            // Change the blackground color
+            public void changeBackgroundColor() {
+                Button button = (Button) findViewById(R.id.button);
+                RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+                int color = ColorWheel.getRandomColor();
+                relativeLayout.setBackgroundColor(color);
+                button.setTextColor(color);
 
             }
         };
